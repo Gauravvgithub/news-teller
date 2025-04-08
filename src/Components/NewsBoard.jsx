@@ -16,7 +16,7 @@ const NewsBoard = ({ category }) => {
           throw new Error("API key is missing. Check your .env file.");
         }
 
-        let url = `https://gnews.io/api/v4/top-headlines?country=in&category=general&apikey=${apiKey}`
+        let url = `https://gnews.io/api/v4/top-headlines?country=in&apikey=${apiKey}`
 
         const response = await fetch(url, { signal });
 
