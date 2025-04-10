@@ -11,7 +11,7 @@ const NewsBoard = ({ category }) => {
 
     const fetchNews = async () => {
       try {
-        const apiKey = "74c4fd2e8ff0b1ce9940a38230522328";
+        const apiKey = import.meta.env.VITE_API_KEY;
         if (!apiKey) {
           throw new Error("API key is missing. Check your .env file.");
         }
