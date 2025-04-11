@@ -16,7 +16,7 @@ const NewsBoard = ({ category }) => {
           throw new Error("API key is missing. Check your .env file.");
         }
 
-        let url = `https://gnews.io/api/v4/top-headlines?country=in&apikey=${apiKey}`
+        let url = `https://gnews.io/api/v4/top-headlines?category=${category}&apikey=${apiKey}`;
 
         const response = await fetch(url, { signal });
 
@@ -41,31 +41,31 @@ const NewsBoard = ({ category }) => {
     fetchNews();
 
     return () => controller.abort(); // Cleanup on unmount
-
   }, [category]);
 
   return (
-    <div>
-      <h2 className="text-center">
-        Latest <span className="badge bg-danger">News</span>
-      </h2>
+    <>
+      <div style={{ margin: "20px" }}>
+        <h2 className="text-center">
+          Latest <span className="badge bg-danger">News</span>
+        </h2>
+      </div>
+      <div>
+        {error && <p className="text-center text-danger">Error: {error}</p>}
 
-      {error && <p className="text-center text-danger">Error: {error}</p>}
-
-      {articles.length > 0 ? (
-        articles.map((news, index) => (
-          <NewsItem
-            key={index}
-            title={news.title}
-            description={news.description}
-            src={news.image}
-            url={news.url}
-          />
-        ))
-      ) : (
-        !error && <p className="text-center">Loading...</p>
-      )}
-    </div>
+        {articles.length > 0
+          ? articles.map((news, index) => (
+              <NewsItem
+                key={index}
+                title={news.title}
+                description={news.description}
+                src={news.image}
+                url={news.url}
+              />
+            ))
+          : !error && <p className="text-center">Loading...</p>}
+      </div>
+    </>
   );
 };
 
